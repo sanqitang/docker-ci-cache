@@ -6,8 +6,8 @@ services:
     build:
       context: .
       cache_from:
-        - mjhea0/docker-ci-cache:latest
-    image: mjhea0/docker-ci-cache:latest
+        - sanqitang/docker-ci-cache:latest
+    image: sanqitang/docker-ci-cache:latest
     ports:
       - 5001:5000
     environment:
