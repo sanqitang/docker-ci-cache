@@ -1,4 +1,4 @@
-# _config-examples/single-stage/compose/github.yml
+# _config-examples/multi-stage/compose/github.yml
 
 name: Docker Build
 
@@ -18,7 +18,18 @@ jobs:
         uses: actions/checkout@v1
       - name: Log in to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build Docker images
-        run: docker-compose build --build-arg BUILDKIT_INLINE_CACHE=1
-      - name: Push to docker hub
-        run: docker push $CACHE_IMAGE:latest
+      - name: Build base from dockerfile
+        run: |
+          docker build \
+            --target base \
+            --cache-from $CACHE_IMAGE:base \
+            --tag $CACHE_IMAGE:base \
+            --file ./Dockerfile.multi \
+            --build-arg BUILDKIT_INLINE_CACHE=1 \
+            "."
+      - name: Build images
+        run: docker-compose -f docker-compose.multi.yml build --build-arg BUILDKIT_INLINE_CACHE=1
+      - name: Push base image to docker hub
+        run: docker push $CACHE_IMAGE:base
+      - name: Push stage image to docker hub
+        run: docker push $CACHE_IMAGE:stage
