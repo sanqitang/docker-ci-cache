@@ -23,7 +23,7 @@ jobs:
             --cache-from $CACHE_IMAGE:base \
             --tag $CACHE_IMAGE:base \
             --file ./Dockerfile.multi \
-            --build-arg BUILDKIT_INLINE_CACHE=1
+            --build-arg BUILDKIT_INLINE_CACHE=1 \
             "."
       - name: Build stage from dockerfile
         run: |
