@@ -13,8 +13,15 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v1
-      - name: Log in to docker hub
-        run: docker login -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASS }}
+#      - name: Log in to docker hub
+#        run: docker login -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASS }}
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.REGISTRY_USER  }}
+          password: ${{ secrets.REGISTRY_PASS }}
+
+        
       - name: Build from dockerfile
         run: |
           docker build \
