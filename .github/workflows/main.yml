@@ -7,18 +7,13 @@ env:
   DOCKER_BUILDKIT: 1
 
 jobs:
-  build:
-    name: Build Docker Image
+  docker:
     runs-on: ubuntu-latest
+    container:
+      image: sanqitang/openwrt-build-env
     steps:
       - name: Checkout
-        uses: actions/checkout@v2  
-      - uses: addnab/docker-run-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: gcr.io
-          image: $CACHE_IMAGE:latest
+        uses: actions/checkout@v2
 #      - name: Log in to docker hub
 #        run: docker login -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASS }}
 #
