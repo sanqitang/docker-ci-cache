@@ -11,8 +11,8 @@ jobs:
     name: Build Docker Image
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout master
-        uses: actions/checkout@v1
+#      - name: Checkout master
+#        uses: actions/checkout@v1
 #      - name: Log in to docker hub
 #        run: docker login -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASS }}
 #
@@ -21,6 +21,14 @@ jobs:
 #        with:
 #          username: ${{ secrets.REGISTRY_USER  }}
 #          password: ${{ secrets.REGISTRY_PASS }}
+          
+          - uses: addnab/docker-run-action@v3
+          with:
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: gcr.io
+          image: $CACHE_IMAGE:latest
+      
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
