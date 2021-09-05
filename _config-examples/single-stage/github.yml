@@ -3,7 +3,7 @@ name: Docker Build
 on: [push]
 
 env:
-  CACHE_IMAGE: sanqitang/docker-ci-cache
+  CACHE_IMAGE: sanqitang/openwrt-build-env
   DOCKER_BUILDKIT: 1
 
 jobs:
